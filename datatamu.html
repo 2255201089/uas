@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DATA TAMU</title>
+</head>
+<style>
+    html,
+    body {
+        overflow: hidden;
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        background-color: #FFC0D9;
+    }
+
+    .custom {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .form-group {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #FF90BC;
+        padding: 20px;
+        padding-top: 0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        text-align: left;
+    }
+
+    pre {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    label {
+        display: inline-block;
+        justify-content: space-between;
+        width: 150px;
+        margin-bottom: 1px;
+        font-weight: bold;
+    }
+
+    input {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+       
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    h2{
+        font-size: 20px;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .checkbox-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%; 
+        margin-bottom: 15px;
+    }
+
+    .checkbox-container label {
+        margin-bottom: 0;
+        margin-right: 4px;
+        flex: 1; 
+    }
+
+
+
+ 
+
+ 
+</style>
+
+<body>
+
+    <center>
+        <h2>DATA TAMU</h2>
+    </center>
+
+    <div class="form-group">
+        <form name="form">
+            <pre>
+                <label for="kode_tamu">KODE TAMU</label>:<input type="text" name="kode_tamu">
+                <label for="nama_tamu">NAMA TAMU</label>:<input type="text" name="nama_tamu">
+                <label for="alamat">ALAMAT</label>:<input type="text" name="alamat">
+                <div class="checkbox-container">
+                    <label for="jenis_Kelamin">Jenis Kelamin:</label>
+                    <input type="checkbox" id="lakiLaki" name="jenis_Kelamin" value="Laki-laki">
+                    <label for="lakiLaki">Laki-laki</label>
+            
+                    <input type="checkbox" id="perempuan" name="jenis_Kelamin" value="Perempuan">
+                    <label for="perempuan">Perempuan</label>
+                </div>
+            </pre>
+       
+            <button id="process">PROSES</button>
+        </form>
+        <center>
+            <h2>INFO TAMU</h2>
+        </center>
+        <div class="table-container">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>KODE TAMU</td>
+                        <td>NAMA TAMU</td>
+                        <td>ALAMAT</td>
+                        <td>JENIS KELAMIN</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.forms["form"];
+            var tbody = document.querySelector("tbody");
+    
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+    
+                var kode_tamu = form.elements["kode_tamu"].value;
+                var nama_tamu = form.elements["nama_tamu"].value;
+                var alamat = form.elements["alamat"].value;
+    
+                // Use document.querySelectorAll to get all selected checkboxes
+                var checkboxes = document.querySelectorAll('input[name="jenis_Kelamin"]:checked');
+    
+                // Create an array to store the selected values
+                var jenis_kelamin_values = [];
+    
+                // Loop through the selected checkboxes and push their values to the array
+                checkboxes.forEach(function (checkbox) {
+                    jenis_kelamin_values.push(checkbox.value);
+                });
+    
+                // Join the array values with a comma to display them in a single cell
+                var jenis_kelamin = jenis_kelamin_values.join(', ');
+    
+                var newRow = document.createElement("tr");
+                newRow.innerHTML = "<td>" + kode_tamu + "</td><td>" + nama_tamu + "</td><td>" + alamat + "</td><td>" + jenis_kelamin + "</td>";
+    
+                tbody.appendChild(newRow);
+    
+                form.reset();
+            });
+        });
+    </script>
+    
+</body>
+
+</html>

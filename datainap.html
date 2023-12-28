@@ -1,0 +1,190 @@
+<html>
+<head>
+    <title>DATA MARKET NASIMA</title>
+</head>
+<style>
+   html, body {
+        overflow: hidden;
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        background-color: #FFC0D9;
+    }
+
+    .form-group {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #FF90BC;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        text-align: left;
+    }
+
+    pre {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* Normal styles for label */
+label {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+    input {
+        width: 300px;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #55b75b;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #ffffff;
+        color: white;
+    }
+
+  select{
+    width: 300px;
+        padding: 8px;
+        margin-bottom: 5px;
+        box-sizing: border-box;
+    
+
+  }
+
+</style>
+<body>
+
+
+       <center> <h2>DATA BARANG</h2></center>
+
+       <div class="form-group">
+        <form name="form">
+            <pre>
+                <label for="kode">KODE TAMU</label>: <select name="kode">
+                    <option value="tamu">TAMU</option>
+                    <option value="001">001</option>
+                    <option value="002">002</option>
+                    <option value="003">003</option>
+                </select>
+                <label for="kamar">KODE KAMAR</label>: <select name="kamar">
+                    <option value="tamu">KAMAR</option>
+                    <option value="A">KAMAR A</option>
+                    <option value="B">KAMAR B</option>
+                    <option value="C">KAMAR C</option>
+                </select>
+                <label for="harga">TANGGAL CHECK IN</label>: <input type="text" name="harga">
+                <label for="lama_inap">LAMA INAP</label>: <input type="text" name="lama_inap">
+            </pre>
+            <button id="process">PROSES</button>
+        </form>
+        <div class="table-container">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>KODE TAMU</td>
+                        <td>KODE KAMAR</td>
+                        <td>TANGGAL CHECK IN</td>
+                        <td>LAMA INAP</td>
+                        <td>DISKON</td>
+                        <td>TOTAL TARIF</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.forms["form"];
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                var kode = form.elements["kode"].value;
+                var kamar = form.elements["kamar"].value;
+                var harga = form.elements["harga"].value;
+                var lama_inap = form.elements["lama_inap"].value;
+
+                var tarif;
+                var diskon = 0;
+
+                // Set tarif berdasarkan pilihan kamar
+                switch (kamar) {
+                    case "A":
+                        tarif = 300000;
+                        break;
+                    case "B":
+                        tarif = 400000;
+                        break;
+                    case "C":
+                        tarif = 500000;
+                        break;
+                    default:
+                        tarif = 0;
+                }
+
+                // Hitung total tarif
+                var totalTarif = tarif * lama_inap;
+
+                // Berikan diskon jika memenuhi syarat
+                if ((kamar === "A" || kamar === "B") && lama_inap > 5) {
+                    diskon = 0.1; // Diskon 10%
+                } else if (kamar === "C" && lama_inap > 5) {
+                    diskon = 0.07; // Diskon 7%
+                }
+
+                // Hitung total tarif setelah diskon
+                var totalTarifSetelahDiskon = totalTarif - (totalTarif * diskon);
+
+                addRowToTable(kode, kamar, harga, lama_inap, diskon, totalTarifSetelahDiskon);
+
+                form.reset();
+            });
+
+            function addRowToTable(kode, kamar, harga, lama_inap, diskon, totalTarifSetelahDiskon) {
+                var tbody = document.querySelector("tbody");
+
+                var newRow = document.createElement("tr");
+                newRow.innerHTML = "<td>" + kode + "</td><td>" + kamar + "</td><td>" + harga + "</td><td>" + lama_inap + "</td><td>" + (diskon * 100) + "%</td><td>" + totalTarifSetelahDiskon + "</td>";
+
+                tbody.appendChild(newRow);
+            }
+        });
+    </script>
+</body>
+</html>

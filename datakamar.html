@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Kamar</title>
+    <style>
+      html,
+    body {
+        overflow: hidden;
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        background-color: #FFC0D9;
+    }
+
+    .custom {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+
+
+    .form-group {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #FF90BC;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+        text-align: left;
+    }
+
+    pre {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+   
+label {
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+
+
+
+
+    input {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table,
+    th,
+    td {
+        border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+ 
+    <center><h2>DATA KAMAR</h2></center>
+    <div class="form-group">
+        <form name="form">
+            <pre>
+                <label for="kode">KODE KAMAR</label>: <input type="text" name="kode">
+                <label for="tipe">TIPE KAMAR</label>: <input type="text" name="tipe">
+                <label for="kamar">JUMLAH KAMAR</label>: <input type="text" name="kamar">
+            </pre>
+            <button id="process">PROSES</button>
+        </form>
+        <center><h2>INFO KAMAR</h2></center>
+        <div class="table-container">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>KODE KAMAR</td>
+                        <td>TIPE KAMAR</td>
+                        <td>JUMLAH KAMAR</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.forms["form"];
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                var kode = form.elements["kode"].value;
+                var tipe = form.elements["tipe"].value; // Changed 'nama' to 'tipe'
+                var kamar = form.elements["kamar"].value;
+
+                addRowToTable(kode, tipe, kamar);
+
+                form.reset();
+            });
+
+            function addRowToTable(kode, tipe, kamar) {
+                var tbody = document.querySelector("tbody");
+                var newRow = document.createElement("tr");
+                newRow.innerHTML = "<td>" + kode + "</td><td>" + tipe + "</td><td>" + kamar + "</td>"; // Changed 'nama' to 'tipe'
+                tbody.appendChild(newRow);
+            }
+        });
+    </script>
+</body>
+</html>
